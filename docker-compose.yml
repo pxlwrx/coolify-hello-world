@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   coolify-hello-world:
@@ -16,18 +16,22 @@ services:
       - TZ=UTC
       - IMAGE_NAME=coolify-hello-world:latest
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/api/system || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:3000/api/system || exit 1",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.coolify-hello-world.rule=Host(`hello-world.local`)"
-      - "traefik.http.routers.coolify-hello-world.entrypoints=web,websecure"
-      - "traefik.http.routers.coolify-hello-world.tls=true"
-      - "traefik.http.services.coolify-hello-world.loadbalancer.server.port=3000"
-      - "coolify.managed=true"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.coolify-hello-world.rule=Host(`hello-world.local`)"
+    #   - "traefik.http.routers.coolify-hello-world.entrypoints=web,websecure"
+    #   - "traefik.http.routers.coolify-hello-world.tls=true"
+    #   - "traefik.http.services.coolify-hello-world.loadbalancer.server.port=3000"
+    #   - "coolify.managed=true"
     networks:
       - coolify-network
     volumes:
