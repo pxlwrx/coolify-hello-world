@@ -130,7 +130,7 @@ network:
 
   # Custom domains
   domains:
-    - pattern: "hello-world.local"
+    - pattern: "test.pxlwrx.de"
       redirect_to_https: true
 
     - pattern: "system-info.homelab"
