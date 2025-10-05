@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     container_name: coolify-hello-world-app
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -25,13 +23,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.coolify-hello-world.rule=Host(`hello-world.local`)"
-    #   - "traefik.http.routers.coolify-hello-world.entrypoints=web,websecure"
-    #   - "traefik.http.routers.coolify-hello-world.tls=true"
-    #   - "traefik.http.services.coolify-hello-world.loadbalancer.server.port=3000"
-    #   - "coolify.managed=true"
     networks:
       - coolify-network
     volumes:
