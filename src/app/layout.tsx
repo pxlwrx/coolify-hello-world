@@ -25,6 +25,19 @@ interface RootLayoutProps {
 }
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  // Server-side logging for debugging
+  if (typeof window === "undefined") {
+    console.log(`[${new Date().toISOString()}] Layout rendering on server`);
+    console.log("Environment variables:", {
+      NODE_ENV: process.env.NODE_ENV,
+      PORT: process.env.PORT,
+      HOSTNAME: process.env.HOSTNAME,
+      COOLIFY_URL: process.env.COOLIFY_URL,
+      SERVICE_FQDN_APP: process.env.SERVICE_FQDN_APP,
+      SERVICE_URL_APP: process.env.SERVICE_URL_APP,
+    });
+  }
+
   return (
     <html lang="en" className="h-full">
       <head>
