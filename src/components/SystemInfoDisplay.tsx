@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { SystemInfoApiResponse } from "@/types/system";
+import type { SystemInfoApiResponse, NetworkInterface } from "@/types/system";
 import {
   formatBytes,
   formatUptime,
@@ -218,7 +218,7 @@ export const SystemInfoDisplay: React.FC<SystemInfoDisplayProps> = ({
           </h3>
           <div className="space-y-3 text-sm max-h-28 overflow-y-auto">
             {network.length > 0 ? (
-              network.map((iface, index) => (
+              network.map((iface: NetworkInterface, index: number) => (
                 <div
                   key={`${iface.name}-${index}`}
                   className="border-l-2 border-terminal-green/30 pl-3"

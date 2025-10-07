@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
+  output: "standalone",
   images: {
     unoptimized: true,
   },
@@ -13,6 +10,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

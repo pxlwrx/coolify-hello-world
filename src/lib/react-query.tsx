@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface ReactQueryProviderProps {
   children: React.ReactNode;
@@ -17,9 +17,9 @@ const createQueryClient = (): QueryClient => {
       queries: {
         staleTime: 30 * 1000, // 30 seconds
         gcTime: 5 * 60 * 1000, // 5 minutes
-        retry: (failureCount, error) => {
+        retry: (failureCount: number, error: Error) => {
           // Don't retry on 4xx errors
-          if (error instanceof Error && 'status' in error) {
+          if (error && "status" in error) {
             const status = (error as any).status;
             if (status >= 400 && status < 500) {
               return false;
@@ -27,7 +27,8 @@ const createQueryClient = (): QueryClient => {
           }
           return failureCount < 3;
         },
-        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+        retryDelay: (attemptIndex: number) =>
+          Math.min(1000 * 2 ** attemptIndex, 30000),
         refetchOnWindowFocus: false,
         refetchOnMount: true,
         refetchOnReconnect: true,
@@ -46,7 +47,7 @@ let browserQueryClient: QueryClient | undefined = undefined;
  * Ensures we don't create multiple clients in the browser
  */
 const getQueryClient = (): QueryClient => {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     // Server: always make a new query client
     return createQueryClient();
   } else {
@@ -62,12 +63,12 @@ const getQueryClient = (): QueryClient => {
  * React Query provider component that wraps the application with QueryClientProvider
  * Provides React Query functionality to all child components
  */
-export const ReactQueryProvider: React.FC<ReactQueryProviderProps> = ({ children }) => {
+export const ReactQueryProvider: React.FC<ReactQueryProviderProps> = ({
+  children,
+}) => {
   const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
